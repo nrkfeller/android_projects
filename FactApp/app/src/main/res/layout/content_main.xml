@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sport Facts Fool!"
-        android:id="@+id/button"
+        android:id="@+id/sportFactsButton"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="66dp"
@@ -35,9 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Crazy Facts Fool!"
-        android:id="@+id/button2"
-        android:layout_below="@+id/button"
-        android:layout_alignEnd="@+id/button"
+        android:id="@+id/crazyFactsButton"
+        android:layout_below="@+id/sportFactsButton"
+        android:layout_alignEnd="@+id/sportFactsButton"
         android:layout_marginTop="24dp"
         android:onClick="goToCrazyFacts"/>
 
@@ -47,7 +47,7 @@
         android:text="Quit This App Fool!"
         android:id="@+id/buttonQuit"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/button2"
+        android:layout_alignEnd="@+id/crazyFactsButton"
         android:layout_marginBottom="96dp" />
 
     <Button
@@ -65,4 +65,13 @@
         android:id="@+id/settingsButton"
         android:layout_below="@+id/mapsButton"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DB"
+        android:id="@+id/dbButton"
+        android:layout_below="@+id/settingsButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/settingsButton" />
 </RelativeLayout>
