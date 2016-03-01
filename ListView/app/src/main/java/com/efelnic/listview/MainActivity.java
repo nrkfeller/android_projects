@@ -42,8 +42,5 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "I am going to " + countries.get(position), Toast.LENGTH_LONG).show();
             }
         });
-
-
-
     }
 }
