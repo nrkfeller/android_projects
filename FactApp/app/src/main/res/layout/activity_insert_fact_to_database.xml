@@ -64,8 +64,9 @@
         android:layout_height="wrap_content"
         android:text="See DB"
         android:id="@+id/viewDataButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/addFactButton"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,5 +84,30 @@
         android:id="@+id/deleteIDText"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/deleteFactButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear DB"
+        android:id="@+id/deleteTableButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="rebuild DB"
+        android:id="@+id/createDatabaseButton"
+        android:layout_alignTop="@+id/deleteTableButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List DB"
+        android:id="@+id/listDatabaseButton"
+        android:layout_alignTop="@+id/createDatabaseButton"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

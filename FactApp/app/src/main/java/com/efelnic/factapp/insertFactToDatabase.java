@@ -1,6 +1,7 @@
 package com.efelnic.factapp;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ public class insertFactToDatabase extends AppCompatActivity {
     Button addFact;
     Button viewDataButton;
     Button deleteFact;
+    Button deleteTableButton;
+    Button createDatabaseButton;
     EditText factTypeText;
     EditText factText;
     EditText deleteIDText;
@@ -28,6 +31,8 @@ public class insertFactToDatabase extends AppCompatActivity {
         addFact = (Button) findViewById(R.id.addFactButton);
         deleteFact = (Button) findViewById(R.id.deleteFactButton);
         viewDataButton = (Button) findViewById(R.id.viewDataButton);
+        deleteTableButton = (Button)findViewById(R.id.deleteTableButton);
+        createDatabaseButton = (Button)findViewById(R.id.createDatabaseButton);
         factText = (EditText)findViewById(R.id.factText);
         factTypeText = (EditText)findViewById(R.id.factTypeText);
         deleteIDText = (EditText)findViewById(R.id.deleteIDText);
@@ -35,6 +40,18 @@ public class insertFactToDatabase extends AppCompatActivity {
         addData();
         viewAll();
         DeleteData();
+        DeleteEntireDatabase();
+        createDatabase();
+
+        Button listDatabaseButton = (Button) findViewById(R.id.listDatabaseButton);
+        listDatabaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View V) {
+                Intent intent = new Intent(insertFactToDatabase.this, ListFactsActivity.class);
+                startActivity(intent);
+            }
+
+        });
     }
 
     public void addData(){
@@ -42,11 +59,13 @@ public class insertFactToDatabase extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         boolean isInserted = myDb.insertData(factTypeText.getText().toString(), factText.getText().toString());
+
                         if (isInserted == true) {
                             Toast.makeText(insertFactToDatabase.this, "Fact has been added!", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(insertFactToDatabase.this, "Invalid type of Database failure", Toast.LENGTH_LONG).show();
+                            Toast.makeText(insertFactToDatabase.this, "Invalid type or Database failure", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -59,20 +78,25 @@ public class insertFactToDatabase extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-                        Cursor res = myDb.getAllData();
-                        if ( res.getCount() == 0 ) {
-                            showMessage("Error", "database empty");
-                            return;
+                        try {
+                            Cursor res = myDb.getAllData();
+                            if ( res.getCount() == 0 ) {
+                                showMessage("Error", "database empty");
+                                return;
+                            }
+
+                            StringBuffer buffer = new StringBuffer();
+                            while (res.moveToNext()) {
+                                buffer.append("ID : " + res.getString(0) + "\n");
+                                buffer.append("Type : " + res.getString(1) + "\n");
+                                buffer.append("Fact : " + res.getString(2) + "\n\n");
+                            }
+
+                            showMessage("Data", buffer.toString());
+                        } catch (Exception e) {
+                            Toast.makeText(insertFactToDatabase.this, "Database is Empty", Toast.LENGTH_LONG).show();
                         }
 
-                        StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("ID : " + res.getString(0) + "\n");
-                            buffer.append("Type : " + res.getString(1) + "\n");
-                            buffer.append("Fact : " + res.getString(2) + "\n\n");
-                        }
-
-                        showMessage("Data", buffer.toString());
                     }
                 }
         );
@@ -94,6 +118,32 @@ public class insertFactToDatabase extends AppCompatActivity {
                 }
         );
     }
+
+    public void DeleteEntireDatabase(){
+        deleteTableButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myDb.deleteEverything();
+                        Toast.makeText(insertFactToDatabase.this, "Database Deleted", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+    public void createDatabase(){
+        createDatabaseButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myDb.createDB();
+                        Toast.makeText(insertFactToDatabase.this, "Created DB", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+
 
     public void showMessage(String title, String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

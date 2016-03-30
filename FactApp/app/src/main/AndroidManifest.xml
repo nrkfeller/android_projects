@@ -31,7 +31,11 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".insertFactToDatabase"></activity>
+        <activity android:name=".insertFactToDatabase" />
+        <activity
+            android:name=".ListFactsActivity"
+            android:label="@string/title_activity_list_facts"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
